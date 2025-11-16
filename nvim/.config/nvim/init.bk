@@ -1,0 +1,99 @@
+vim.opt.number = true -- Line number
+vim.opt.relativenumber = true -- Relative line numbers
+vim.opt.wrap = false --Word wrap	
+vim.opt.tabstop = 4 -- Spaces for tab
+vim.opt.swapfile = false -- Swapfile
+vim.opt.signcolumn = "yes" -- Stops the colomns from shifting
+vim.opt.winborder = "rounded" -- Add a border to the autocomplete box
+vim.opt.shiftwidth = 4 -- How far a tab goes
+vim.opt.cursorline = true -- Adds linecolour for active line
+vim.opt.termguicolors = true -- 24 bit colors
+vim.opt.smartindent = true
+vim.opt.autoindent = true
+vim.opt.scrolloff = 20
+vim.opt.incsearch = true
+vim.opt.hlsearch = true
+vim.opt.clipboard = "unnamedplus"
+vim.opt.showmode = false
+vim.opt.cmdheight = 0
+--vim.opt.foldenable = true
+--vim.opt.foldmethod = "indent"
+
+
+vim.g.mapleader = " "
+
+
+
+
+
+vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
+vim.keymap.set('n', '<leader>w', ':write<CR>')
+vim.keymap.set('n', '<leader>q', ':quit<CR>')
+vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
+vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
+vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
+vim.keymap.set('n', '-', ':Oil<CR>')
+
+vim.pack.add({
+	{ src = "https://github.com/ellisonleao/gruvbox.nvim" },
+	{ src = "https://github.com/stevearc/oil.nvim" },
+	{ src = "https://github.com/echasnovski/mini.pick" },
+	{ src = "https://github.com/neovim/nvim-lspconfig" },
+	{ src = "https://github.com/chomosuke/typst-preview.nvim" },
+	{ src = "https://github.com/Saghen/blink.cmp" },
+	{ src = "https://github.com/windwp/nvim-autopairs" },
+	{ src = "https://github.com/nvim-lualine/lualine.nvim"},
+	{ src = "https://github.com/folke/which-key.nvim"},
+})
+require ('tmux-sync')
+require ("which-key").setup()
+require ("mini.pick").setup()
+require ("oil").setup()
+require ("blink.cmp").setup()
+require ("nvim-autopairs").setup()
+require ("lualine").setup{
+	options = {theme = "gruvbox"},
+}
+
+vim.lsp.enable({ "kdl-lsp" })
+vim.lsp.enable({ "lua_ls" })
+vim.lsp.enable({ "rust_analyzer" })
+vim.lsp.config("lua_ls", {
+	settings = {
+		Lua = {
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+			}
+		}
+	}
+})
+vim.cmd("colorscheme gruvbox")
+-- Then force transparency after any colorscheme change
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    vim.cmd([[
+      highlight Normal guibg=NONE ctermbg=NONE
+      highlight NonText guibg=NONE ctermbg=NONE
+      highlight SignColumn guibg=NONE ctermbg=NONE
+      highlight NormalNC guibg=NONE ctermbg=NONE
+      highlight EndOfBuffer guibg=NONE ctermbg=NONE
+      highlight LineNr guibg=NONE ctermbg=NONE
+      highlight CursorLineNr guibg=NONE ctermbg=NONE
+      highlight VertSplit guibg=NONE ctermbg=NONE
+    ]])
+  end,
+})
+
+-- Apply it immediately too
+vim.cmd([[
+  highlight Normal guibg=NONE ctermbg=NONE
+  highlight NonText guibg=NONE ctermbg=NONE
+  highlight SignColumn guibg=NONE ctermbg=NONE
+  highlight NormalNC guibg=NONE ctermbg=NONE
+  highlight EndOfBuffer guibg=NONE ctermbg=NONE
+  highlight LineNr guibg=NONE ctermbg=NONE
+  highlight CursorLineNr guibg=NONE ctermbg=NONE
+  highlight VertSplit guibg=NONE ctermbg=NONE
+]])
+vim.cmd(":hi statusline guibg=NONE")

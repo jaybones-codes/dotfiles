@@ -1,0 +1,152 @@
+-- =====================
+-- Original editor settings
+-- =====================
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.wrap = false
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.cursorline = true
+vim.opt.termguicolors = true
+vim.opt.smartindent = true
+vim.opt.autoindent = true
+vim.opt.scrolloff = 20
+vim.opt.incsearch = true
+vim.opt.hlsearch = true
+vim.opt.clipboard = "unnamedplus"
+vim.opt.showmode = false
+vim.opt.cmdheight = 0
+vim.opt.signcolumn = "yes"
+vim.opt.winborder = "rounded"
+
+-- Leader key
+vim.g.mapleader = " "
+
+-- =====================
+-- Keymaps
+-- =====================
+vim.keymap.set('n', '<leader>o', ':update<CR>:source<CR>')
+vim.keymap.set('n', '<leader>w', ':write<CR>')
+vim.keymap.set('n', '<leader>q', ':quit<CR>')
+vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
+vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
+vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
+vim.keymap.set('n', '-', ':Oil<CR>')
+
+-- =====================
+-- Plugin loading (your original conventions)
+-- =====================
+vim.pack.add({
+    { src = "https://github.com/ellisonleao/gruvbox.nvim" },
+    { src = "https://github.com/stevearc/oil.nvim" },
+    { src = "https://github.com/echasnovski/mini.pick" },
+    { src = "https://github.com/neovim/nvim-lspconfig" },
+    { src = "https://github.com/chomosuke/typst-preview.nvim" },
+    { src = "https://github.com/Saghen/blink.cmp" },
+    { src = "https://github.com/windwp/nvim-autopairs" },
+    { src = "https://github.com/nvim-lualine/lualine.nvim"},
+    { src = "https://github.com/folke/which-key.nvim"},
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter.git"},
+	{ src = "https://github.com/Badhi/nvim-treesitter-cpp-tools.git"},
+})
+
+require('tmux-sync')
+require("which-key").setup()
+require("mini.pick").setup()
+require("oil").setup()
+require("blink.cmp").setup()
+require("nvim-autopairs").setup()
+require("lualine").setup{
+    options = {theme = "gruvbox"},
+}
+
+-- =====================
+-- LSPs
+-- =====================
+vim.lsp.enable({ "kdl-lsp" })
+vim.lsp.enable({ "lua_ls" })
+vim.lsp.enable({ "rust_analyzer" })
+
+-- **Add C++ LSP** (clangd) following your original conventions
+vim.lsp.enable({ "clangd" })
+
+vim.lsp.config("lua_ls", {
+    settings = {
+        Lua = {
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+            }
+        }
+    }
+})
+
+-- =====================
+-- Colorscheme & transparency
+-- =====================
+vim.cmd("colorscheme gruvbox")
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    vim.cmd([[
+      highlight Normal guibg=NONE ctermbg=NONE
+      highlight NonText guibg=NONE ctermbg=NONE
+      highlight SignColumn guibg=NONE ctermbg=NONE
+      highlight NormalNC guibg=NONE ctermbg=NONE
+      highlight EndOfBuffer guibg=NONE ctermbg=NONE
+      highlight LineNr guibg=NONE ctermbg=NONE
+      highlight CursorLineNr guibg=NONE ctermbg=NONE
+      highlight VertSplit guibg=NONE ctermbg=NONE
+    ]])
+  end,
+})
+
+vim.cmd([[
+  highlight Normal guibg=NONE ctermbg=NONE
+  highlight NonText guibg=NONE ctermbg=NONE
+  highlight SignColumn guibg=NONE ctermbg=NONE
+  highlight NormalNC guibg=NONE ctermbg=NONE
+  highlight EndOfBuffer guibg=NONE ctermbg=NONE
+  highlight LineNr guibg=NONE ctermbg=NONE
+  highlight CursorLineNr guibg=NONE ctermbg=NONE
+  highlight VertSplit guibg=NONE ctermbg=NONE
+  highlight statusline guibg=NONE
+]])
+-- =====================
+-- C++ Tools Integration
+-- =====================
+vim.pack.add({
+    { src = "https://github.com/Badhi/nvim-treesitter-cpp-tools" },
+})
+
+require('nt-cpp-tools').setup({
+  preview = {
+    quit = 'q',
+    accept = '<CR>',
+  },
+})
+
+-- Function to auto-create .h and generate declarations
+local function gen_header()
+  local cpp_file = vim.fn.expand('%:p')
+  local header_file = cpp_file:gsub('%.cpp$', '.h')
+
+  if not vim.fn.filereadable(header_file) then
+    vim.fn.writefile({}, header_file)
+    print('Created header file: ' .. header_file)
+  end
+
+  vim.cmd('CppGen h')
+end
+
+-- Keybinds
+vim.keymap.set('n', '<leader>gh', gen_header, { desc = 'Generate header from cpp (.h)' })
+vim.keymap.set('n', '<leader>gc', ':CppGen cpp<CR>', { desc = 'Generate cpp from header' })
+-- Lua version
+vim.cmd [[
+  hi Normal guibg=NONE ctermbg=NONE
+  hi NormalNC guibg=NONE ctermbg=NONE
+  hi SignColumn guibg=NONE ctermbg=NONE
+  hi EndOfBuffer guibg=NONE ctermbg=NONE
+]]
+

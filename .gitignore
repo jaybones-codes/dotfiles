@@ -1,0 +1,7 @@
+# Ignore common temporary files and sensitive data
+.DS_Store
+*.swp
+*.bak
+*.tmp
+.env
+
