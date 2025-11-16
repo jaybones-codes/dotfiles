@@ -1,0 +1,75 @@
+/*
+ * wofi style. Colors are from authors below.
+ * Base16 Gruvbox dark, medium.
+ * Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox).
+ */
+@define-color base00 #282828;
+@define-color base01 #3C3836;
+@define-color base02 #504945;
+@define-color base03 #665C54;
+@define-color base04 #BDAE93;
+@define-color base05 #D5C4A1;
+@define-color base06 #EBDBB2;
+@define-color base07 #FBF1C7;
+@define-color base08 #FB4934;
+@define-color base09 #FE8019;
+@define-color base0A #FABD2F;
+@define-color base0B #B8BB26;
+@define-color base0C #8EC07C;
+@define-color base0D #83A598;
+@define-color base0E #D3869B;
+@define-color base0F #D65D0E;
+
+window {
+    background-color: @base00;
+    border: 2px solid @base0D;
+    border-radius: 0px;
+    font-family: monospace;
+    font-size: 16px; /* Reduced font size */
+}
+
+#input {
+    border-radius: 0;
+    border: 0px;
+    padding: 8px; /* Reduced padding */
+    margin: 0px;
+    font-size: 18px; /* Reduced font size */
+    color: @base0C;
+    background-color: @base01;
+}
+
+#inner-box {
+    margin: 0px;
+    color: @base06;
+    background-color: @base00;
+}
+
+#outer-box {
+    margin: 0px; /* Reduced margin */
+    background-color: @base00;
+    border-radius: 0px;
+}
+
+#scroll {
+    margin-top: 5px; /* Reduced margin */
+}
+
+#entry {
+    padding: 8px; /* Reduced padding */
+    margin: 0px;
+    background-color: @base00;
+    color: @base06;
+}
+
+#entry:selected {
+    background-color: @base02;
+    color: @base0A;
+}
+
+#text {
+    color: @base06;
+}
+
+#text:selected {
+    color: @base0A;
+}
