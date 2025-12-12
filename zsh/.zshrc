@@ -258,8 +258,8 @@ cheat() {
 # ----------------------------------------------------------------------------
 
 # Default editor
-export EDITOR='vim'
-export VISUAL='vim'
+export EDITOR='nvim'
+export VISUAL='nvim'
 
 # Less colors (man pages)
 export LESS_TERMCAP_mb=$'\e[1;32m'

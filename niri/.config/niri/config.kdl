@@ -1,8 +1,4 @@
-// This config is in the KDL format: https://kdl.dev
-// "/-" comments out the following node.
-// Check the wiki for a full description of the configuration:
-// https://yalter.github.io/niri/Configuration:-Introduction
-
+// This config is in the KDL format: https://kdl.dev "/-" comments out the following node. Check the wiki for a full description of the configuration: https://yalter.github.io/niri/Configuration:-Introduction
 // Input device configuration.
 // Find the full list of options on the wiki:
 // https://yalter.github.io/niri/Configuration:-Input
@@ -23,10 +19,11 @@ input {
           // from org.freedesktop.locale1. You can control these using
           // localectl set-x11-keymap.
       }
-repeat-delay 600
-repeat-rate 0
+      
+repeat-delay 300    
+repeat-rate 25
       // Enable numlock on startup, omitting this setting disables it.
-      numlock
+//      numlock
   }
 // Next sections include libinput settings.
   // Omitting settings disables them, or leaves them at their default values.
@@ -346,7 +343,7 @@ window-rule {
 
 window-rule {
     match app-id="obsidian"
-    open-fullscreen true
+    open-maximized true
 }
 
 // Open the Firefox picture-in-picture player as floating by default.
@@ -398,9 +395,9 @@ binds {
     Mod+T hotkey-overlay-title="Open a Terminal: Kitty" { spawn-sh "kitty"; }
     Mod+D hotkey-overlay-title="Run an Application: Obsidian" { spawn "obsidian"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
-    Mod+F hotkey-overlay-title="Open FileBrowser: Ranger" {spawn-sh "kitty -e ranger";}
+    Mod+F hotkey-overlay-title="Open FileBrowser: Ranger" {spawn-sh "kitty -e yazi";}
     Mod+B hotkey-overlay-title="Open Chromium" {spawn "chromium";}
-    Mod+Shift+T hotkey-overlay-title="Open Kitty in Programming mode"{spawn-sh "tmux";}
+    Mod+Shift+T hotkey-overlay-title="Open Kitty in Programming mode"{spawn-sh "kitty -e tmux";}
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
